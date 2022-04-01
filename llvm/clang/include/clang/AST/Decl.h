@@ -1919,6 +1919,10 @@ private:
   /// EndRangeLoc.
   SourceLocation EndRangeLoc;
 
+  // omp2cd 
+  bool printBody;
+  std::string backEnd;
+  
   /// The template or declaration that this declaration
   /// describes or was instantiated from, respectively.
   ///
@@ -2089,6 +2093,23 @@ public:
   bool hasBody() const override {
     const FunctionDecl* Definition;
     return hasBody(Definition);
+  }
+  
+  // omp2cd update
+  bool getPrintBodyFlag(){
+    return this->printBody;
+  }
+
+  void setPrintBodyFlag(bool flag){
+    this->printBody = flag;
+  }
+
+  std::string getBackEnd(){
+    return this->backEnd;
+  }
+ 
+  void setBackEnd(std::string in_backEnd){
+    this->backEnd = in_backEnd;
   }
 
   /// Returns whether the function has a trivial body that does not require any

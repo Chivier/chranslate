@@ -16,6 +16,7 @@
 #include "clang/Basic/LLVM.h"
 #include "clang/Basic/LangOptions.h"
 
+#include "clang/AST/omp2cd-typedefs.h"
 namespace clang {
 
 class DeclContext;
@@ -74,7 +75,17 @@ struct PrintingPolicy {
         SuppressImplicitBase(false), FullyQualifiedName(false),
         PrintCanonicalTypes(false), PrintInjectedClassNameWithArguments(true),
         UsePreferredNames(true), AlwaysIncludeTypeForTemplateArgument(false),
-        CleanUglifiedParameters(false) {}
+        CleanUglifiedParameters(false) {
+
+        darts_printingInTPLoop = false;
+        darts_printingInTP = false;
+		darts_Node = nullptr;
+        prefixStr = "this->";
+        postfixStr = "[this->myID]";
+		darts_varTable2 = nullptr;
+		
+		backEnd = "darts";
+        }
 
   /// Adjust this printing policy for cases where it's known that we're
   /// printing C++ code (for instance, if AST dumping reaches a C++-only
@@ -87,6 +98,27 @@ struct PrintingPolicy {
   }
 
   /// The number of spaces to use to indent each line.
+  bool darts_printingInTPLoop;
+  bool darts_printingInTP;
+  int darts_functionNodeID;
+  int darts_parentNodeID;
+  omp2cd_space::DFGNode *darts_Node;
+  omp2cd_space::TPInputs_t darts_TPInputs;
+  omp2cd_space::TPInputs_t darts_TPVars;
+  omp2cd_space::TPCallees_t darts_TPCallees;
+  omp2cd_space::TPExtraArgs_t darts_TPExtraArgs;
+  omp2cd_space::VarTable2_t *darts_varTable2;
+  omp2cd_space::FunctionTable_t functionTable;
+  /// \brief prefix and postfix strings for the variable
+  std::string prefixStr;
+  std::string postfixStr;
+  /// \brief TP's ID
+  int darts_TPID;
+  std::vector<int> darts_TPIDTree;
+  std::string backEnd;
+      
+  /// \brief What language we're printing.
+  LangOptions LangOpts;
   unsigned Indentation : 8;
 
   /// Whether we should suppress printing of the actual specifiers for
