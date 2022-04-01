@@ -711,9 +711,9 @@ bool ompASTVisitor::VisitOMPExecutableDirective(OMPExecutableDirective* s)
             this->currentNode->noWait = true;
         }
         /* codelet clause */
-        else if (dyn_cast<OMPCodeletClause>(clause)) {
-            this->currentNode->ompExtensionClause->codelet = true;
-        }
+        // else if (dyn_cast<OMPCodeletClause>(clause)) {
+        //     this->currentNode->ompExtensionClause->codelet = true;
+        // }
         /* schedule(..) */
         else if (dyn_cast<OMPScheduleClause>(clause)) {
             OMPScheduleClause* sch = dyn_cast<OMPScheduleClause>(clause);

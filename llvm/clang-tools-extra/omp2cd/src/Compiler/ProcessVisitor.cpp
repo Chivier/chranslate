@@ -313,7 +313,7 @@ void ompASTVisitor::insertNullNodeAfter(DFGNode* prevNode, DFGNodeNullStmtType_t
 	uint8_t *nullStmtPtr = (uint8_t*) this->context->Allocate(sizeof(NullStmt));
 	NullStmt *nullStmt = nullptr;
 	if(nullStmtPtr)
-		nullStmt = new(nullStmtPtr) NullStmt(prevNode->getStmt()->getLocEnd());
+		nullStmt = new(nullStmtPtr) NullStmt(prevNode->getStmt()->getEndLoc());
 	
 	DFGNode *newNode = new DFGNode(nullStmt, prevNode->parent, getNewNodeID());
 	if (newNode){

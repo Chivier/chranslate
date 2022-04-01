@@ -5,7 +5,7 @@
 #include "include/DFG/DFG.h"
 #include "include/DFG/DFGNode.h"
 #include "include/omp2cd-utils.h"
-
+ 
 extern std::string outputInclude;
 extern std::ofstream outputFileH;
 extern std::ofstream outputFileCpp;
@@ -93,7 +93,7 @@ public:
         const clang::Module* imported)
     {
         findIncludeFilesCallback.InclusionDirective(hashLoc, includeTok, fileName, isAngled,
-            filenameRange, file, searchPath, relativePath, imported);
+            filenameRange, file, searchPath, relativePath, imported, clang::SrcMgr::CharacteristicKind::C_User);
     }
 
 private:
